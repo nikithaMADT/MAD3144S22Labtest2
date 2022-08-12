@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>Clothing Delivery Calculator</h1>
+    <form id="carform" autocomplete="off">
+        <label>
+            <input id="With packing" type="checkbox" value="2000" data-itemname="With packing">
+            With packing: $2000
+        </label>
+        <label>
+            <input id="Pickup at customer door step" type="checkbox" value="1000" data-itemname="Pickup at customer door step">
+            Pickup at customer door step: $1000
+        </label>
+        <label>
+            <input id="Drop off at store" type="checkbox" value="500" data-itemname="Drop off at store">
+            Drop off at store: $500
+        </label>
+    </form>
+    
+    <div>
+        Selections:
+        <div id="selections"></div>
+        
+        Total Price: <span id="price"></span>
+    </div>
+    
+    <script>
+    var price = 2000;
+    document.getElementById('price').innerHTML = price;
+    
+    var options = document.getElementById('carform').querySelectorAll('input');
+    for(var i=0; i<options.length; i++){
+        options[i].onclick = handleOption;
+    }
+    
+    function handleOption(){
+        var itemPrice = Number(this.value);
+        if(this.checked){
+            price += itemPrice;
+        }
+        else{
+            price -= itemPrice;
+        }
+    
+        showSelections();
+        document.getElementById('price').innerHTML = price;
+    }
+    
+    function showSelections(){
+        var list = [];
+        var checkedOnes = document.getElementById('carform').querySelectorAll('input:checked');
+        for(var i=0; i<checkedOnes.length; i++){
+            var itemname = checkedOnes[i].getAttribute('data-itemname');
+            list.push(itemname);
+        }
+        document.getElementById('selections').innerHTML = list.join('<br>');
+    }
+    
+</script>
+</body>
+</html>
